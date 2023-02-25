@@ -1,0 +1,21 @@
+{
+    "Print to console": {
+        "prefix": "bfs",
+        "body": [
+            "ll dp[100010];",
+            "vector<int> G[100010];",
+            "",
+            "int bfs(ll v, ll cnt){",
+            "    if(dp[v] > 0) return 0;",
+            "    dp[v] = cnt;",
+            "    cnt++;",
+            "    for(auto u : G[v]){",
+            "        bfs(u,cnt);",
+            "    }",
+            "    return 0;",
+            "}",
+            ],
+        "description": "breadth first search"
+    }
+}
+
