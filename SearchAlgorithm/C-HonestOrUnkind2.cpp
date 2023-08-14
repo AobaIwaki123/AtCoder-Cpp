@@ -24,32 +24,24 @@ int _main()
         ll A; cin >> A;
         for(ll j = 0; j < A; j++){
             ll x, y; cin >> x >> y;
-            // i番目の人が正直者もしくは不親切な人と証言した人を記録
             if (y == 0) liars[i].push_back(x - 1);
             else honests[i].push_back(x - 1);
         }
     }
 
     ll ans = 0;
-    // 正直者、不親切な人を仮定してbit全探索を行う
     for(ll msk = 0; msk < 1 << N; msk++){
         bool ok = true;
-        // 正直者の人数を初期化
         ll tot = 0;
-        // i人目の人が正直者の場合処理を行う
         for (ll i = 0; i < N; i++) if (msk & (1 << i)){
-            // 正直者の人数をインクリメント
             tot++;
-            // i番目の人が正直者だと証言した人を全探索し、仮定にそうか判定
             for (auto &j:honests[i]){ 
                 if (!(msk & (1 << j))) ok == false;
             }
-            // i番目の人が不親切な人だと証言した人を全探索し、仮定にそうか判定
             for (auto &j:liars[i]) {
                 if (msk & (1 << j)) ok = false;
             }
         }
-        // 可能な組み合わせのうち、正直者が最も多い場合をansに格納
         if (ok) ans = max(ans, tot);
     }
     cout << ans << endl;
