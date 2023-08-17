@@ -1,6 +1,10 @@
 {
     "files.associations": {
+        "*.embeddedhtml": "html",
         "*.html": "html",
+        "*.css": "css",
+        "*.pxd": "cython",
+        "*.pyx": "cython",
         "iostream": "cpp",
         "__bit_reference": "cpp",
         "__bits": "cpp",
@@ -61,6 +65,8 @@
         "variant": "cpp",
         "vector": "cpp",
         "algorithm": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "random": "cpp",
+        "iomanip": "cpp"
     }
 }

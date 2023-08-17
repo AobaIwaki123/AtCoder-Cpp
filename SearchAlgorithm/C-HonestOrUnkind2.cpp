@@ -20,59 +20,33 @@ vector<ll> liars[15];
 int _main()
 {
     cin >> N;
-    for (ll i = 0; i < N; i++){
+    rep (i, N){
         ll A; cin >> A;
-        for(ll j = 0; j < A; j++){
+        rep(j, A){
             ll x, y; cin >> x >> y;
+            // i番目の人が正直者もしくは不親切な人と証言した人を記録
             if (y == 0) liars[i].push_back(x - 1);
             else honests[i].push_back(x - 1);
         }
     }
 
     ll ans = 0;
-    for(ll msk = 0; msk < 1 << N; msk++){
+    // 正直者、不親切な人を仮定してbit全探索を行う
+    rep(msk, 1 << N){
         bool ok = true;
+        // 正直者の人数を初期化
         ll tot = 0;
-        for (ll i = 0; i < N; i++) if (msk & (1 << i)){
+        // i人目の人が正直者の場合処理を行う
+        rep(i, N) if (msk & (1 << i)){
+            // 正直者の人数をインクリメント
             tot++;
-            for (auto &j:honests[i]){ 
-                if (!(msk & (1 << j))) ok == false;
-            }
-            for (auto &j:liars[i]) {
-                if (msk & (1 << j)) ok = false;
-            }
+            // i番目の人が正直者だと証言した人を全探索し、仮定にそうか判定
+            for (auto &honest:honests[i]) if (!(msk & (1 << honest))) ok = false;
+            // i番目の人が不親切な人だと証言した人を全探索し、仮定にそうか判定
+            for (auto &liar:liars[i]) if (msk & (1 << liar)) ok = false;
         }
-        if (ok) ans = max(ans, tot);
-    }
-    cout << ans << endl;
-    return 0;
-}
-
-int _main(){
-    cin >> N;
-    for (ll i = 0; i < N; i++){
-        ll A; cin >> A;
-        for (ll j = 0; j < A; j++){
-            ll x, y; cin >> x >> y;
-            if (y == 0) liars[i].push_back(x - 1);
-            else honests[i].push_back(x - 1);
-        }
-    }
-
-    ll ans = 0;
-    for (ll msk = 0; msk < 1 << N; msk++){
-        bool ok = true;
-        ll tot = 0;
-        for (ll i = 0; i < N; i++) if (msk & (1 << i)){
-            tot++;
-            for (auto &j:honests[i]){
-                if (!(msk & (1 << j))) ok = false;
-            }
-            for (auto &j:liars[i]){
-                if (msk & (1 << j)) ok = false;
-            }
-        }
-        if (ok) ans = max(ans, tot);
+        // 可能な組み合わせのうち、正直者が最も多い場合をansに格納
+        if (ok) chmax(ans, tot);
     }
     cout << ans << endl;
     return 0;
