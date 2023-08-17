@@ -67,6 +67,7 @@
         "algorithm": "cpp",
         "stack": "cpp",
         "random": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "*.tcc": "cpp"
     }
 }
