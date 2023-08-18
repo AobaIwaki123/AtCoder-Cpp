@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
-using namespace std; int _main(); int main() { cin.tie(0); ios::sync_with_stdio(false); _main(); }
+using namespace std; 
+// int _main(); int main() { cin.tie(0); ios::sync_with_stdio(false); _main(); }
 typedef long long ll;
 typedef pair<ll, ll> P;
 #define reps(i, a, n) for (ll i = (a); i < (ll)(n); ++i)
@@ -14,12 +15,12 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 
 
-int _main()
+int main()
 {
     int h, w, n;
     cin >> h >> w >> n;
     vector<pair<int, int>> cheeze(n);
-    vector<string> b(n);
+    vector<string> b(h);
     for (int i = 0; i < h; i++){
         cin >> b[i];
     }
@@ -59,7 +60,7 @@ int _main()
             int ny = cx + dy[i];
             if (nx < 0 || nx >= h || ny < 0 || ny >= w) continue;
             if (b[nx][ny] == 'X') continue;
-            if(dist[nx][ny]) continue;
+            if(dist[nx][ny] > 0) continue;
             dist[nx][ny] = dist[cx][cy] + 1;
             q.emplace(nx, ny);
             if(nx == gx && ny == gy){
@@ -76,5 +77,5 @@ int _main()
         }
     }
     cout << result << endl;
-    return 0;
+    // return 0;
 }
