@@ -1,45 +1,42 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <algorithm>
 using namespace std;
-typedef long long ll;
-typedef pair<ll, ll> l_l;
-typedef pair<int, int> i_i;
 
-const long double PI = (acos(-1));
-const long double EPS = 0.0000000001;
-
-long double a, b, x;
-
-void input() {
-    cin >> a >> b >> x;
-}
-
-long double f(long double a, long double b, long double theta) {
-    if(theta > PI / 2.0 - EPS) {
-        return 0.0;
-    }
-    long double ret;
-    if(a * tan(theta) <= b) {
-        ret = a * a * b - a * a * a * tan(theta) / 2.0;
-    } else {
-        ret = b * b / tan(theta) * a / 2.0;
-    }
-    return ret;
-}
-
-void solve() {
-    input();
-    long double ok = PI / 2.0;
-    long double ng = 0.0;
-    for(int _ = 1; _ <= 100000; _++) {
-        long double mid = (ok + ng) / 2.0;
-        if(f(a, b, mid) < x) ok = mid;
-        else ng = mid;
-    }
-    cout << fixed << setprecision(10) << ok / PI * 180 << endl;
-    return;
-}
+long long N, X, A[40];
+long long W1[1 << 20], W2[1 << 20];
+bool flag = false;
 
 int main() {
-    solve();
+    cin >> N >> X;
+    for (int i = 0; i < N; i++) cin >> A[i];
+
+    // 前半 N/2 個を bit 全探索で全列挙する
+    for (int i = 0; i < (1 << (N / 2)); i++) {
+        long long sum = 0;
+        for (int j = 0; j < (N / 2); j++) {
+            if ((i / (1 << j)) % 2 == 0) sum += A[j];
+        }
+        W1[i] = sum;
+    }
+
+    // 後半 N - N/2 個を bit 全探索で全列挙する
+    for (int i = 0; i < (1 << (N - (N / 2))); i++) {
+        long long sum = 0;
+        for (int j = 0; j < N - (N / 2); j++) {
+            if ((i / (1 << j)) % 2 == 0) sum += A[j + (N / 2)];
+        }
+        W2[i] = sum;
+    }
+
+    // ソートしたうえで半分全列挙をする
+    sort(W1, W1 + (1 << (N / 2)));
+    sort(W2, W2 + (1 << (N - (N / 2))));
+    for (int i = 0; i < (1 << (N / 2)); i++) {
+        long long rem = X - W1[i];
+        int pos1 = lower_bound(W2, W2 + (1 << (N - (N / 2))), rem) - W2;
+        if (W2[pos1] == rem) flag = true;
+    }
+    if (flag == true) cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }
