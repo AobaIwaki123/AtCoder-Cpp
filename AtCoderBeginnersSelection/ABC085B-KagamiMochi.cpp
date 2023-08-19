@@ -12,22 +12,10 @@ const ll INF = 1LL << 60;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
-ll N, A[200];
+
 
 int _main()
 {
-    cin >> N;
-    rep(i, N) cin >> A[i];
-    sort(A, A+N, greater<ll>());
-    ll sum_a = 0;
-    ll sum_b = 0;
-    rep(i, N){
-        if(i % 2 == 0){
-            sum_a += A[i];
-        }else{
-            sum_b += A[i];
-        }
-    }
-    cout << sum_a - sum_b << endl;
+    
     return 0;
 }
