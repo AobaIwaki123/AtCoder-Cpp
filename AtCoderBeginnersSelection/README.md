@@ -1,0 +1,2 @@
+- [AtCoder Beginners Selection - AtCoder](https://atcoder.jp/contests/abs)
+- [レッドコーダーが教える、競プロ・AtCoder上達のガイドライン【初級編：競プロを始めよう】 - Qiita](https://qiita.com/e869120/items/f1c6f98364d1443148b3#1-6-3-atcoder-beginners-selection%E3%82%92%E8%A7%A3%E3%81%8F)
