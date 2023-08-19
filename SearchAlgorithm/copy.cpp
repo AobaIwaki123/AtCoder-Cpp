@@ -1,44 +1,45 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
-using ll=long long;
-using pii=pair<int,int>;
+typedef long long ll;
+typedef pair<ll, ll> l_l;
+typedef pair<int, int> i_i;
 
-#define all(a) a.begin(),a.end()
-#define pb push_back
-#define sz(a) ((int)a.size())
+const long double PI = (acos(-1));
+const long double EPS = 0.0000000001;
 
-int k,n,pw3[10];
-string a[77],b[77],res[10];
+long double a, b, x;
 
-signed main(){
-    ios_base::sync_with_stdio(0),cin.tie(0);
-    cin >> k >> n;
-    for(int i=0; i<n; ++i) cin >> a[i] >> b[i];
-    pw3[0]=1;
-    for(int i=1; i<10; ++i) pw3[i]=pw3[i-1]*3;
-    for(int s=0; s<pw3[k]; ++s){
-        for(int i=0; i<k; ++i) res[i].clear();
-        bool ok=1;
-        for(int i=0; i<n&&ok; ++i){
-            int cur=0;
-            for(auto c: a[i]){
-                int len=s/pw3[c-'1']%3+1;
-                if(cur+len>sz(b[i])){
-                    ok=0;
-                    break;
-                }
-                if(!res[c-'1'].empty()&&res[c-'1']!=b[i].substr(cur,len)){
-                    ok=0;
-                    break;
-                }
-                res[c-'1']=b[i].substr(cur,len);
-                cur+=len;
-            }
-            if(cur!=sz(b[i])) ok=0;
-        }
-        if(ok){
-            for(int i=0; i<k; ++i) cout << res[i] << "\n";
-            return 0;
-        }
+void input() {
+    cin >> a >> b >> x;
+}
+
+long double f(long double a, long double b, long double theta) {
+    if(theta > PI / 2.0 - EPS) {
+        return 0.0;
     }
+    long double ret;
+    if(a * tan(theta) <= b) {
+        ret = a * a * b - a * a * a * tan(theta) / 2.0;
+    } else {
+        ret = b * b / tan(theta) * a / 2.0;
+    }
+    return ret;
+}
+
+void solve() {
+    input();
+    long double ok = PI / 2.0;
+    long double ng = 0.0;
+    for(int _ = 1; _ <= 100000; _++) {
+        long double mid = (ok + ng) / 2.0;
+        if(f(a, b, mid) < x) ok = mid;
+        else ng = mid;
+    }
+    cout << fixed << setprecision(10) << ok / PI * 180 << endl;
+    return;
+}
+
+int main() {
+    solve();
+    return 0;
 }
