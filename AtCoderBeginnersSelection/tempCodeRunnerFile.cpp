@@ -17,17 +17,24 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 int _main()
 {
     ll N; cin >> N;
-    vector<ll> D(N);
-    rep(i,N) cin >> D[i];
-    sort(all(D), greater<ll>());
-    ll ans = 0;
-    ll pre = INF;
-    rep(i, N) {
-        if(pre > D[i]){
-            pre = D[i];
-            ans++;
-        }
+    vector<ll> T(N), X(N), Y(N);
+    rep(i, N){
+        cin >> T[i] >> X[i] >> Y[i];
     }
-    cout << ans << endl;
+    ll time;
+    ll diff;
+    bool ok = true;
+    rep(i, N){
+        if(i == 0) {
+            time = T[i];
+            diff = (X[i] + Y[i]);
+        } else{
+            time = (T[i] - T[i-1]);
+            diff = ((X[i] - X[i-1]) + (Y[i] - Y[i-1]));
+        }
+        if(!(time%2 == diff%2 && time>=diff)) ok = false;
+    }
+    if(ok) cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }

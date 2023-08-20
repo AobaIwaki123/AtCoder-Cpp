@@ -16,18 +16,18 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 int _main()
 {
-    ll N; cin >> N;
-    vector<ll> D(N);
-    rep(i,N) cin >> D[i];
-    sort(all(D), greater<ll>());
-    ll ans = 0;
-    ll pre = INF;
-    rep(i, N) {
-        if(pre > D[i]){
-            pre = D[i];
-            ans++;
+    ll N, Y; cin >> N >> Y;
+    ll a = -1; ll b = -1; ll c = -1;
+    rep(i, N+1){
+        rep(j, N+1){
+            if(i + j > N) continue;
+            ll k = N - i - j;
+            ll price = i * 10000 + j * 5000 + k * 1000;
+            if(price == Y){
+                a = i; b = j; c = k;
+            }
         }
     }
-    cout << ans << endl;
+    cout << a << " " << b << " " << c << endl;
     return 0;
 }
