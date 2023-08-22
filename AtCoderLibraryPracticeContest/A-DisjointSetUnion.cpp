@@ -60,7 +60,8 @@ struct UnionFind{
     int size(int x) {
         return -par[root(x)];
     }
-}
+};
+
 int _main(){
     int N, Q;
     cin >> N >> Q;
@@ -71,7 +72,7 @@ int _main(){
         int type, u, v;
         cin >> type >> u >> v;
         if(type == 1)
-            cout << (uf.issame(u, v) ? 1 : 0) endl;
+            cout << (uf.issame(u, v) ? 1 : 0) << endl;
         else
             uf.merge(u, v);
     }
