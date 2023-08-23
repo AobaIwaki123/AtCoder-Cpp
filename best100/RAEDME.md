@@ -1,1 +1,4 @@
 - [レッドコーダーが教える、競プロ・AtCoder上達のガイドライン【中級編：目指せ水色コーダー！】 - Qiita](https://qiita.com/e869120/items/eb50fdaece12be418faa)
+- [「JOI2007本戦C 最古の遺跡」を解いてみた - EAFP](https://kazu0716.hatenablog.com/entry/2021/02/17/015253)
+- [JOI2007本戦C 最古の遺跡 | 機械学習エンジニアの技術メモ](https://kakedashi-engineer.appspot.com/2020/05/07/joi2007hoc/)
+- [JOI2006/2007 最古の遺跡 | a244\_note](https://atsuyoshi-n.github.io/blog/old_heritage)
