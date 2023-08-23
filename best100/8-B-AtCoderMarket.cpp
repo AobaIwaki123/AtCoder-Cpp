@@ -16,14 +16,29 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 int _main()
 {
-    string S; cin >> S;
-    ll ans = 0;
-    rep(i, S.size()){
-        ll cnt = 0;
-        if(S[i] == 'A' || S[i] == 'C' || S[i] == 'G' || S[i] == 'T') cnt++;
-        else cnt = 0;
-        chmax(ans, cnt);
+    ll N; cin >> N;
+    vector<ll> A(N), B(N);
+    ll sum1 = 0; ll sum2 = 0; ll sum3 = 0;
+    rep(i, N){
+        ll a, b; cin >> a >> b;
+        A[i] = min(a, b);
+        B[i] = max(a, b);
+        sum1 += abs(A[i] - B[i]);
     }
-    cout << ans << endl;
+    sort(all(A)); sort(all(B));
+    ll mid_a; ll mid_b;
+    if(N % 2 == 1){
+        ll mid = (N+1) / 2;
+        mid_a = A[mid-1]; mid_b = B[mid-1];
+    }else{
+        ll mid = N/2;
+        mid_a = (A[mid-1] + A[mid]) / 2;
+        mid_b = (B[mid-1] + B[mid]) / 2;
+    }
+    rep(i, N){
+        sum2 += abs(mid_a - A[i]);
+        sum3 += abs(mid_b - B[i]);
+    }
+    cout << sum1 + sum2 + sum3 << endl;
     return 0;
 }
