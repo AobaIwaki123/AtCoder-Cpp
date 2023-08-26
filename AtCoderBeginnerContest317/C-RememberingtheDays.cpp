@@ -12,48 +12,31 @@ const ll INF = 1LL << 60;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
-struct Edge {
-    ll to;     // 辺の行き先
-    ll weight; // 辺の重み
-    Edge(ll t, ll w) : to(t), weight(w) { }
-};
-using Graph = vector<vector<Edge>>;
+int n, m;
+int e[11][11];
+int used[11];
+int ans;
 
-// 深さ優先探索
-bool seen[20];
-ll ans = 0;
-// ll start = -1;
-void dfs(const Graph &G, ll v, ll dist) {
-    seen[v] = true; // v を訪問済にする
-
-    // v から行ける各頂点 next_v について
-    for (auto edge : G[v]) { 
-        if (seen[edge.to]) continue; // edge.to が探索済だったらスルー
-        // cout << "from " << v + 1 << " ";
-        // cout << "to " << edge.to + 1 << endl;
-        dfs(G, edge.to, dist + edge.weight); // 再帰的に探索
-        seen[edge.to] = false;
+void dfs(int v, int sum){
+    used[v] = 1;
+    ans = max(ans, sum);
+    rrep(i, n){
+        if(!used[i] && e[v][i]){
+            dfs(i, sum + e[v][i]);
+        }
     }
-    if(dist > ans){
-        ans = dist;
-    }
+    used[v] = 0;
 }
 
 int _main()
 {
-    ll N, M; cin >> N >> M;
-    Graph G(N);
-    rep(i, M){
-        ll a, b, c; cin >> a >> b >> c;
-        a--; b--;
-        G[a].push_back(Edge(b, c));
-        G[b].push_back(Edge(a, c));
+    cin >> n >> m;
+    rep(i, m){
+        int a, b, c;
+        cin >> a >> b >> c;
+        e[a][b] = e[b][a] = c;
     }
-    rep(i, N){
-        rep(i, N) seen[i] = false;
-        dfs(G, i, 0);
-
-    }
+    rrep(i, n) dfs(i, 0);
     cout << ans << endl;
     return 0;
 }

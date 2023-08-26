@@ -16,19 +16,6 @@ template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true
 
 int _main()
 {
-    int N;
-    cin >> N;
-    vector<int> A(N);
-    for(auto &&a : A) cin >> a;
-
-    int min_A = ranges::min(A); 
-
-    vector<bool> now_have(N, false);
-
-    for(int a : A) now_have[a - min_A] = true;
-
-    rep(i, N){
-        if(!now_have[i]) cout << i + min_A << endl;
-    }
+    
     return 0;
 }
