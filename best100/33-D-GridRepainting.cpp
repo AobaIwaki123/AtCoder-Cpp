@@ -12,43 +12,68 @@ const ll INF = 1LL << 60;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
+int dirs[4][2] = {{0,1}, {0,-1}, {1,0}, {-1,0}};
 
+void solve(){
+    int h,w;
+    cin >> h >> w;
+    vector<vector<char>> grid;
 
+    int black = 0;
+
+    rep(i, h){
+        vector<char> v;
+        rep(j, w){
+            char x;
+            cin >> x;
+            v.push_back(x);
+
+            if(x == '#'){
+                black++;
+            }
+        }
+        grid.push_back(v);
+    }
+
+    vector<vector<bool>> visited(h, vector<bool>(w, false));
+
+    queue<pair<int, int>> q;
+    q.push(make_pair(0, 0));
+
+    int dist = 0;
+    bool found = false;
+    while(!q.empty() && !found){
+        int n = q.size();
+        rep(i, n){
+            auto p = q.front();
+            q.pop();
+
+            if(p.first == grid.size() - 1 && p.second == grid[0].size() - 1){
+                found = true;
+                break;
+            }
+
+            rep(j, 4){
+                int newR = p.first + dirs[j][0];
+                int newC = p.second + dirs[j][1];
+
+                if(newR >= 0 && newR < grid.size() && newC >= 0 && newC < grid[0].size() &&
+                !visited[newR][newC] && grid[newR][newC] == '.'){
+                    visited[newR][newC] = true;
+                    q.push(make_pair(newR, newC));
+                }
+            }
+        }
+        dist++;
+    }
+    if(!found){
+        cout << - 1 << endl;
+    }else{
+        cout << h * w - black - dist << endl;
+    }
+}
 int _main()
 {
-    ll H, W;
-    cin >> H >> W;
-    char M[60][60];
-    ll cnt = 0;
-    ll dist[60][60];
-    rep(h, H) rep(w, W) {
-        char c; cin >> c;
-        if(c == '#') cnt++;
-        M[h][w] = c;
-        dist[h][w] = INF;
-    }
-    ll ans = -1;
-    queue<pair<ll, ll>> que;
-    que.emplace(make_pair(0, 0));
-    ll dy[4] = {0, 0, 1, -1};
-    ll dx[4] = {1, -1, 0, 0};
-    dist[0][0] = 0;
-    while(!que.empty()){
-        pair<ll, ll> state = que.front();
-        if(state.first == H-1 && state.second == W-1) break;
-        que.pop();
-        rep(i, 4){
-            pair<ll, ll> newstate = que.front();
-            newstate.first = state.first + dy[i];
-            newstate.second = state.second + dx[i];
-            if(newstate.first < 0 || newstate.first >= H || newstate.second < 0 || newstate.second >= W) continue;
-            if(dist[newstate.first][newstate.second] != INF) continue;
-            dist[newstate.first][newstate.second] = dist[state.first][state.second] + 1;
-            que.push(newstate);
-        }
-    }
-    // cout << dist[H-1][W-1] << endl;
-    if(dist[H-1][W-1] == INF) cout << ans << endl;
-    else cout << H * W - (dist[H-1][W-1] + 1) - cnt << endl;
+    solve();
     return 0;
 }
