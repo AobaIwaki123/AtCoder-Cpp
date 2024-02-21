@@ -12,38 +12,34 @@ const ll INF = 1LL << 60;
 template<class T> inline bool chmin(T& a, T b) { if (a > b) { a = b; return true; } return false; }
 template<class T> inline bool chmax(T& a, T b) { if (a < b) { a = b; return true; } return false; }
 
+
+
 int _main()
 {
-    unordered_map<char, P> direction = {
-        {'L', {-1, 0}},
-        {'R', {+1, 0}},
-        {'U', {0, -1}},
-        {'D', {0, +1}},
-    };
-
-    ll H, W, N;
-    cin >> H >> W >> N;
-    string T;
-    cin >> T;
-    vector<string> S(H);
-    rep(i, H) cin >> S[i];
+    ll h, w, n;
+    cin >> h >> w >> n;
+    string t,s[505];
+    cin >> t;
+    rrep(i, h) cin >> s[i];
 
     ll ans = 0;
-    rrep(i, H) rrep(j, W){
-        if(S[i][j] == '#') continue;
-        P position = {i, j};
-        bool ch = true;
-        rep(k, T.size()){
-            P dir = direction[T[k]];
-            position.first = position.first + dir.first;
-            position.second = position.second + dir.second;
-            if(S[position.first][position.second] == '#') {
-                ch = false;
-                break;
+    rrep(i, h){
+        rep(j, w){
+            if(s[i][j] == '#') continue;
+            ll I = i, J = j; bool ok = true;
+            fore(c, t){
+                if( c == 'L') J--;
+                if( c == 'R') J++;
+                if( c == 'U') I--;
+                if( c == 'D') I++;
+                if(s[I][J] == '#'){
+                    ok = false;
+                    break;
+                }
             }
+            if(ok) ans++;
         }
-        if(ch) ans++;
     }
-
+    cout << ans << endl;
     return 0;
 }
