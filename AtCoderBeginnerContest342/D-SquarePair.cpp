@@ -18,26 +18,22 @@ int _main()
 {
     ll N;
     cin >> N;
-    string S;
-    cin >> S;
-    ll Q;
-    cin >> Q;
-    string from = "abcdefghijklmnopqrstuvwxyz";
-    string to = "abcdefghijklmnopqrstuvwxyz";
-    rep(i, Q){
-        char C, D;
-        cin >> C >> D;
-        for(auto &&m: to)
-            if(m == C)
-                m = D;
-    }
+    vector<ll> A(N);
+    reps(i, 0,N) cin >> A[i];
 
-    for(const auto c : S){
-        for(unsigned i = 0; i < 26; ++i){
-            if(c == from[i])
-            cout << to[i];
+    const ll M = 1e6L+1;
+    vector<ll> S(M);
+    iota(all(S), 0);
+    for(ll d = 1000; d >= 2; d--){
+        for(ll k = d*d; k < M; k += d*d){
+            if(S[k] % (d*d) == 0)S[k] /= d*d;
         }
     }
-    cout << endl;
+
+    vector<ll> cnt(M);
+    reps(i, 0, N) cnt[S[A[i]]]++;
+    ll ans = 0;
+    reps(i, 0, M) ans += (ll)cnt[i]*cnt[i];
+    cout << (ans - N)/2 + (ll)cnt[0]*(N-cnt[0]) << endl;
     return 0;
 }
