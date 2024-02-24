@@ -18,22 +18,15 @@ int _main()
 {
     ll N;
     cin >> N;
-    vector<ll> B(N, N);
-    ll front;
-
-    rep(i, N){
-        ll A;
-        cin >> A;
-        --A;
-        if(A<0) front = i;
-        else B[A] = i;
+    --N;
+    ll ans = 0; 
+    ll cnt = 0;
+    while(N>=1){
+        ll base5 = N % 5;
+        ans += base5 * 2 * (ll)pow(10, cnt);
+        N /= 5;
+        cnt++;
     }
-
-    while(front < N){
-        cout << front + 1 << " ";
-        front = B[front];
-    }
-    cout << endl;
-    
+    cout << ans << endl;
     return 0;
 }

@@ -18,22 +18,20 @@ int _main()
 {
     ll N;
     cin >> N;
-    vector<ll> B(N, N);
-    ll front;
+    ll A[210000];
+    rep(i, N) cin >> A[i+1];
+    A[0] = 0;
+    A[N+1] = 0;
+    ll m1[210000], m2[210000];
+    m1[0] = min(A[0], A[1] - 1);
+    m2[N-1] = A[N+1] + N + 1;
 
-    rep(i, N){
-        ll A;
-        cin >> A;
-        --A;
-        if(A<0) front = i;
-        else B[A] = i;
-    }
+    reps(i, 1, N) m1[i] = min(m1[i-1], A[i+1] - i-1);
+    for(ll i = N-2; i>=0; i--) m2[i] = min(m2[i+1], A[i+2] + i + 2);
 
-    while(front < N){
-        cout << front + 1 << " ";
-        front = B[front];
-    }
-    cout << endl;
-    
-    return 0;
+    ll ans = 0;
+    rep(i, N) ans = max(ans, min(m1[i] + i + 1, m2[i] - i - 1));
+
+    cout << ans << endl;
+    return 0;   
 }

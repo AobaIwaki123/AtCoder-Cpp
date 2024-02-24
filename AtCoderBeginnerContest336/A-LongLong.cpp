@@ -18,22 +18,8 @@ int _main()
 {
     ll N;
     cin >> N;
-    vector<ll> B(N, N);
-    ll front;
-
-    rep(i, N){
-        ll A;
-        cin >> A;
-        --A;
-        if(A<0) front = i;
-        else B[A] = i;
-    }
-
-    while(front < N){
-        cout << front + 1 << " ";
-        front = B[front];
-    }
-    cout << endl;
-    
+    cout << 'L';
+    rep(i,N - 3) cout << 'o';
+    cout << "ng";
     return 0;
 }
