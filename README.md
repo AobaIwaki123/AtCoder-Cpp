@@ -33,3 +33,7 @@ int _main()
     return 0;
 }
 ```
+
+## 感想
+
+[ABC336 D問題の感想](AtCoderBeginnerContest336/README.md)
