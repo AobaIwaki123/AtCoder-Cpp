@@ -1,8 +1,8 @@
 .DS_Store
-A.cpp
-B.cpp
-C.cpp
-D.cpp
-E.cpp
+A.*
+B.*
+C.*
+D.*
+E.*
 copy.cpp
 tempCodeRunnerFile*
